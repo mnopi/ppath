@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
+      <change afterPath="$PROJECT_DIR$/sudoers.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ppath/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ppath/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppath/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/ppath/__init__.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +33,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
@@ -58,6 +64,7 @@
     <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -73,8 +80,8 @@
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
-      <console-settings custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;try:&#10;    import rich.pretty&#10;    import rich.console&#10;    import rich &#10;    from rich import inspect &#10;    from functools import partial &#10;    ins = partial(rich.inspect, docs=False, methods=True, private=True)&#10;    rinspect  = rich.inspect&#10;    console = rich.console.Console(color_system='256')&#10;    cp = console.print&#10;    rich.pretty.install(console=console, expand_all=True)&#10;except ModuleNotFoundError:&#10;    pass&#10;try:&#10;    from ghapi.all import GhApi&#10;    ghapi = GhApi()&#10;except ModuleNotFoundError:&#10;    pass&#10;if hasattr(__builtins__, '__IPYTHON__'):&#10;    '%rehashx'&#10;from ppath import *" module-name="ppath" is-module-sdk="true">
-        <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;try:&#10;    import rich.pretty&#10;    import rich.console&#10;    import rich &#10;    from rich import inspect &#10;    from functools import partial &#10;    ins = partial(rich.inspect, docs=False, methods=True, private=True)&#10;    rinspect  = rich.inspect&#10;    console = rich.console.Console(color_system='256')&#10;    cp = console.print&#10;    rich.pretty.install(console=console, expand_all=True)&#10;except ModuleNotFoundError:&#10;    pass&#10;try:&#10;    from ghapi.all import GhApi&#10;    ghapi = GhApi()&#10;except ModuleNotFoundError:&#10;    pass&#10;if hasattr(__builtins__, '__IPYTHON__'):&#10;    '%rehashx'&#10;from ppath import *" />
+      <console-settings custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;try:&#10;    import rich.pretty&#10;    import rich.console&#10;    import rich &#10;    from rich import inspect &#10;    from functools import partial &#10;    ins = partial(rich.inspect, docs=False, methods=True, private=True)&#10;    rinspect  = rich.inspect&#10;    console = rich.console.Console(color_system='256', force_terminal=True)&#10;    cp = console.print&#10;    rich.pretty.install(console=console, expand_all=True)&#10;except ModuleNotFoundError:&#10;    pass&#10;try:&#10;    from ghapi.all import GhApi&#10;    ghapi = GhApi()&#10;except ModuleNotFoundError:&#10;    pass&#10;if hasattr(__builtins__, '__IPYTHON__'):&#10;    '%rehashx'&#10;from ppath import *&#10;load_ext rich&#10;load_ext autoreload&#10;autoreload&#10;" module-name="ppath" is-module-sdk="true">
+        <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;try:&#10;    import rich.pretty&#10;    import rich.console&#10;    import rich &#10;    from rich import inspect &#10;    from functools import partial &#10;    ins = partial(rich.inspect, docs=False, methods=True, private=True)&#10;    rinspect  = rich.inspect&#10;    console = rich.console.Console(color_system='256', force_terminal=True)&#10;    cp = console.print&#10;    rich.pretty.install(console=console, expand_all=True)&#10;except ModuleNotFoundError:&#10;    pass&#10;try:&#10;    from ghapi.all import GhApi&#10;    ghapi = GhApi()&#10;except ModuleNotFoundError:&#10;    pass&#10;if hasattr(__builtins__, '__IPYTHON__'):&#10;    '%rehashx'&#10;from ppath import *&#10;load_ext rich&#10;load_ext autoreload&#10;autoreload&#10;" />
         <option name="myUseModuleSdk" value="true" />
         <option name="myModuleName" value="ppath" />
       </console-settings>
@@ -86,7 +93,7 @@
       <recent name="$PROJECT_DIR$/ppath" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile Target.publish">
+  <component name="RunManager" selected="Docker.python">
     <configuration default="true" type="BashConfigurationType" singleton="false" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="" />
@@ -181,12 +188,6 @@
     </configuration>
     <configuration name="py3" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="py3" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
-    <configuration name="tox" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="tox" workingDirectory="" arguments="">
         <envs />
       </makefile>
       <method v="2" />
@@ -427,6 +428,15 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="python" type="docker-deploy" factoryName="docker-image" singleton="false" temporary="true" server-name="macos">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="python:3.10-alpine" />
+          <option name="containerName" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docs" factoryName="Docutils task" singleton="false">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -631,20 +641,20 @@
     </configuration>
     <list>
       <item itemvalue="Makefile Target.tests" />
-      <item itemvalue="Python tests.Doctest toiter" />
       <item itemvalue="Makefile Target.build" />
-      <item itemvalue="Makefile Target.tox" />
       <item itemvalue="Makefile Target.py3" />
       <item itemvalue="Makefile Target.py" />
       <item itemvalue="Makefile Target.publish" />
+      <item itemvalue="Python tests.Doctest toiter" />
+      <item itemvalue="Docker.python" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.python" />
         <item itemvalue="Makefile Target.publish" />
         <item itemvalue="Makefile Target.build" />
         <item itemvalue="Makefile Target.py" />
         <item itemvalue="Makefile Target.py3" />
-        <item itemvalue="Makefile Target.tox" />
       </list>
     </recent_temporary>
   </component>
@@ -656,6 +666,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -676,6 +689,15 @@
   <component name="ch.raffael.plugins.idea.runpopup.RunConfigurationUseTracker">
     <option name="runConfInfo">
       <map>
+        <entry key="Docker.python">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Docker.python" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649677994084" />
+            </RunConfInfo>
+          </value>
+        </entry>
         <entry key="Makefile Target.build">
           <value>
             <RunConfInfo>
@@ -690,7 +712,7 @@
             <RunConfInfo>
               <option name="confId" value="Makefile Target.publish" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649643154264" />
+              <option name="timestamp" value="1649643903151" />
             </RunConfInfo>
           </value>
         </entry>
@@ -717,16 +739,7 @@
             <RunConfInfo>
               <option name="confId" value="Makefile Target.tests" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649637576146" />
-            </RunConfInfo>
-          </value>
-        </entry>
-        <entry key="Makefile Target.tox">
-          <value>
-            <RunConfInfo>
-              <option name="confId" value="Makefile Target.tox" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649642779546" />
+              <option name="timestamp" value="1649671663720" />
             </RunConfInfo>
           </value>
         </entry>
