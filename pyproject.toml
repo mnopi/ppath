@@ -35,3 +35,16 @@ addopts = [
     '--verbosity=4',
 ]
 
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{38,39,310,311}
+isolated_build = True
+skip_missing_interpreters = true
+[testenv]
+passenv = USER
+deps =
+    pytest
+    pytest-asyncio
+commands = pytest
+"""

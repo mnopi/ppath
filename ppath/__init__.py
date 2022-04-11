@@ -230,7 +230,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         return self.parent if self.is_file() else self
 
     @classmethod
-    def expandvars(cls, path: str | None = None):
+    def expandvars(cls, path=None):
         """
         Return a Path instance from expanded environment variables in path.
 
