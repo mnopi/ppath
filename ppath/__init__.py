@@ -14,6 +14,9 @@ import tempfile
 from collections.abc import Iterable
 
 
+# TODO: Acabar con el Path y ya meter el comprimir y descomprimir. y el sha256 ponerle la version
+
+
 class Path(pathlib.Path, pathlib.PurePosixPath):
 
     def __contains__(self, value):

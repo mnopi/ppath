@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/tag.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/tag.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+    <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
+      <change beforePath="$PROJECT_DIR$/ppath/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ppath/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,6 +169,24 @@
     </configuration>
     <configuration name="publish" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="publish" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="py" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="py" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="py3" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="py3" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="tox" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="tox" workingDirectory="" arguments="">
         <envs />
       </makefile>
       <method v="2" />
@@ -616,14 +633,18 @@
       <item itemvalue="Makefile Target.tests" />
       <item itemvalue="Python tests.Doctest toiter" />
       <item itemvalue="Makefile Target.build" />
+      <item itemvalue="Makefile Target.tox" />
+      <item itemvalue="Makefile Target.py3" />
+      <item itemvalue="Makefile Target.py" />
       <item itemvalue="Makefile Target.publish" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Makefile Target.publish" />
         <item itemvalue="Makefile Target.build" />
-        <item itemvalue="Python tests.Doctest toiter" />
-        <item itemvalue="Makefile Target.tests" />
+        <item itemvalue="Makefile Target.py" />
+        <item itemvalue="Makefile Target.py3" />
+        <item itemvalue="Makefile Target.tox" />
       </list>
     </recent_temporary>
   </component>
@@ -649,6 +670,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="auto" />
+    <option name="LAST_COMMIT_MESSAGE" value="auto" />
   </component>
   <component name="ch.raffael.plugins.idea.runpopup.RunConfigurationUseTracker">
     <option name="runConfInfo">
@@ -658,7 +681,7 @@
             <RunConfInfo>
               <option name="confId" value="Makefile Target.build" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649637748453" />
+              <option name="timestamp" value="1649643095697" />
             </RunConfInfo>
           </value>
         </entry>
@@ -667,7 +690,25 @@
             <RunConfInfo>
               <option name="confId" value="Makefile Target.publish" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649639709315" />
+              <option name="timestamp" value="1649643154264" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Makefile Target.py">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.py" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649643015062" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Makefile Target.py3">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.py3" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649642864030" />
             </RunConfInfo>
           </value>
         </entry>
@@ -677,6 +718,15 @@
               <option name="confId" value="Makefile Target.tests" />
               <option name="executorId" value="Run" />
               <option name="timestamp" value="1649637576146" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Makefile Target.tox">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.tox" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649642779546" />
             </RunConfInfo>
           </value>
         </entry>
