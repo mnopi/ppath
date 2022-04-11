@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         uses: actions/setup-python@v2
         with:
-          python: ${{ matrix.python }}
+          pthon-version: ${{ matrix.python }}
       - run: |
           pip install pip-tools
           pip-compile setup.cfg --extra test --output-file /tmp/requirements.txt

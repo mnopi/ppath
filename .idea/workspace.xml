@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ppath/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ppath/__init__.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/tag.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/tag.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +86,7 @@
       <recent name="$PROJECT_DIR$/ppath" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile Target.tests">
+  <component name="RunManager" selected="Makefile Target.publish">
     <configuration default="true" type="BashConfigurationType" singleton="false" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="" />
@@ -163,6 +157,18 @@
     </configuration>
     <configuration default="true" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false">
       <makefile filename="" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="build" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="publish" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="publish" workingDirectory="" arguments="">
         <envs />
       </makefile>
       <method v="2" />
@@ -608,9 +614,13 @@
     <list>
       <item itemvalue="Makefile Target.tests" />
       <item itemvalue="Python tests.Doctest toiter" />
+      <item itemvalue="Makefile Target.build" />
+      <item itemvalue="Makefile Target.publish" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile Target.publish" />
+        <item itemvalue="Makefile Target.build" />
         <item itemvalue="Python tests.Doctest toiter" />
         <item itemvalue="Makefile Target.tests" />
       </list>
@@ -642,12 +652,30 @@
   <component name="ch.raffael.plugins.idea.runpopup.RunConfigurationUseTracker">
     <option name="runConfInfo">
       <map>
+        <entry key="Makefile Target.build">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.build" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649637748453" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Makefile Target.publish">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.publish" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649639464897" />
+            </RunConfInfo>
+          </value>
+        </entry>
         <entry key="Makefile Target.tests">
           <value>
             <RunConfInfo>
               <option name="confId" value="Makefile Target.tests" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649637359692" />
+              <option name="timestamp" value="1649637576146" />
             </RunConfInfo>
           </value>
         </entry>
