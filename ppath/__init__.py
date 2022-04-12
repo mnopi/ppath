@@ -3,6 +3,7 @@
 Ppath package
 """
 __all__ = (
+    "AnyPath",
     "MACOS",
     "EnumLower",
     "PIs",
@@ -23,19 +24,23 @@ import pathlib
 import platform
 import pwd
 import shutil
+import signal
 import stat
 import subprocess
 import tempfile
 from collections.abc import Iterable
 from dataclasses import dataclass
 from dataclasses import field
+from typing import AnyStr
+from typing import IO
 from typing import Union
-
-MACOS = platform.system == "Darwin"
-"""True if :func:`platform.system` is Darwin."""
 
 _cache_passwd = {}
 _cache_which = {}
+
+AnyPath = Union[os.PathLike, AnyStr, IO[AnyStr]]
+MACOS = platform.system() == "Darwin"
+"""True if :func:`platform.system` is Darwin."""
 
 
 class CalledProcessError(subprocess.SubprocessError):
@@ -49,26 +54,89 @@ class CalledProcessError(subprocess.SubprocessError):
         returncode: The exit code of the process.
         output: The output of the process.
         stderr: The error output of the process.
-        process: :class:`subprocess.CompletedProcess` object.
+        completed: :class:`subprocess.CompletedProcess` object.
     """
-    def __init__(self, returncode, cmd, output=None, stderr=None, process=None):
+    def __init__(self, returncode=None, cmd=None, output=None, stderr=None, completed=None):
+        """
+        Patched :class:`subprocess.CalledProcessError`.
+        
+        Examples:
+            >>> 3/0  # doctest: +IGNORE_EXCEPTION_DETAIL
+            Traceback (most recent call last):
+            ZeroDivisionError: division by zero
+            >>> subprocess.run(["ls", "foo"], capture_output=True, check=True)  # doctest: +IGNORE_EXCEPTION_DETAIL +ELLIPSIS
+            Traceback (most recent call last):
+            ppath.CalledProcessError:
+              Return Code:
+                1
+            <BLANKLINE>
+              Command:
+                ['ls', 'joder']
+            <BLANKLINE>
+              Stderr:
+                b'ls: joder: No such file or directory\\n'
+            <BLANKLINE>
+              Stdout:
+                b''
+            <BLANKLINE>
+            >>> subprocess.run(["ls", "foo"], capture_output=True, check=True)  # doctest: +IGNORE_EXCEPTION_DETAIL +ELLIPSIS
+            Traceback (most recent call last):
+            ppath.CalledProcessError:
+              Return Code:
+                1
+            <BLANKLINE>
+              Command:
+                ['ls', 'joder']
+            <BLANKLINE>
+              Stderr:
+                None
+            <BLANKLINE>
+              Stdout:
+                None
+            <BLANKLINE>
+
+
+        Args:
+            cmd: The command that was run.
+            returncode: The exit code of the process.
+            output: The output of the process.
+            stderr: The error output of the process.
+            completed: :class:`subprocess.CompletedProcess` object.
+        """
         self.returncode = returncode
         self.cmd = cmd
         self.output = output
         self.stderr = stderr
-        self.process = process
+        self.completed = completed
+        if self.returncode is None:
+            self.returncode = self.completed.returncode
+            self.cmd = self.completed.args
+            self.output = self.completed.stdout
+            self.stderr = self.completed.stderr
+
+    def _message(self):
+        if self.returncode and self.returncode < 0:
+            try:
+                return f"Died with {signal.Signals(-self.returncode)!r}."
+            except ValueError:
+                return f"Died with with unknown signal {-self.returncode}."
+        else:
+            return f"{self.returncode:d}"
 
     def __str__(self):
-        value = super().__str__()
-        if self.stderr is not None:
-            value += "\n" + self.stderr
-        elif self.process is not None and self.process.stderr is not None:
-            value += "\n" + self.process.stderr
-        if self.stdout is not None:
-            value += "\n" + self.stdout
-        elif self.process is not None and self.process.stdout is not None:
-            value += "\n" + self.process.stdout
-        return value
+        return f"""
+  Return Code:
+    {self._message()}
+        
+  Command: 
+    {self.cmd}
+
+  Stderr: 
+    {self.stderr}
+
+  Stdout:
+    {self.output}
+"""
 
     @property
     def stdout(self):
@@ -99,7 +167,7 @@ class PIs(EnumLower):
 
 class Path(pathlib.Path, pathlib.PurePosixPath):
 
-    def __call__(self, name='', file=PIs.IS_DIR, passwd=None, mode=None):
+    def __call__(self, name="", file=PIs.IS_DIR, passwd=None, mode=None):
         """
         Make dir or touch file and create subdirectories as needed.
 
@@ -109,7 +177,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             ...     assert p.is_dir() is True
             ...     p = t('1/2/3/4/5/6/7.py', file=PIs.IS_FILE)
             ...     assert p.is_file() is True
-            ...     t('1/2/3/4/5/6/7.py/8/9.py', file=PIs.IS_FILE) # doctest: +IGNORE_EXCEPTION_DETAIL, +ELLIPSIS
+            ...     t('1/2/3/4/5/6/7.p_y/8/9.py', file=PIs.IS_FILE) # doctest: +IGNORE_EXCEPTION_DETAIL, +ELLIPSIS
             Traceback (most recent call last):
             NotADirectoryError
 
@@ -151,6 +219,12 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         return all([item in self.resolve().parts for item in value])
 
     def __eq__(self, other):
+        """
+        Equal based on _cparts
+
+        Examples:
+            >>> assert Path('/usr/local') == Path('/usr/local')
+        """
         if not isinstance(other, self.__class__):
             return NotImplemented
         return self._cparts == other._cparts
@@ -190,26 +264,19 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             return NotImplemented
         return self._cparts >= other._cparts
 
-    def _is_file(self):
-        """Find up to the first directory in the path and check if it is a file."""
-        p = self.resolve()
-        while True:
-            if p.is_file():
-                return p.text
-            elif p.is_dir() or (p := p.parent.resolve()) == Path('/'):
-                return None
-
     def access(self, os_mode=os.W_OK, *, dir_fd=None, effective_ids=False, follow_symlinks=True):
         # noinspection LongLine
         """
         Use the real uid/gid to test for access to a path `Real Effective IDs`_.
 
-            -   real: user owns the process.
+            -   real: user owns the completed.
             -   effective: user invoking.
 
         Examples:
             >>> assert Path().access() is True
             >>> assert Path('/usr/bin').access() is False
+            >>> assert Path('/tmp').access() is True
+            >>> assert Path('/tmp').access(effective_ids=True) is True
 
         Args:
             os_mode: Operating-system mode bitfield. Can be F_OK to test existence,
@@ -229,10 +296,10 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             routine can be used in a suid/sgid environment to test if the invoking user
             has the specified access to the path.
 
-            When a setuid program (`-rwsr-xr-x`) executes, the process changes its Effective User ID (EUID)
+            When a setuid program (`-rwsr-xr-x`) executes, the completed changes its Effective User ID (EUID)
             from the default RUID to the owner of this special binary executable file:
                 -   euid: owner of executable (`os.geteuid()`).
-                -   uid: user starting the process (`os.getuid()`).
+                -   uid: user starting the completed (`os.getuid()`).
 
         Returns:
             True if access.
@@ -248,16 +315,16 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Add args to self.
 
         Examples:
-            >>> import ppath
-            >>>
-            >>> p = Path().add('a/a')
-            >>> assert Path() / 'a/a' == p
-            >>> p = Path().add(*['a', 'a'])
-            >>> assert Path() / 'a/a' == p
-            >>> p = Path(ppath.__file__)
-            >>> p.add('a', exception=True)  # doctest: +IGNORE_EXCEPTION_DETAIL, +ELLIPSIS
-            Traceback (most recent call last):
-            FileNotFoundError...
+            # >>> import ppath
+            # >>>
+            # >>> p = Path().add('a/a')
+            # >>> assert Path() / 'a/a' == p
+            # >>> p = Path().add(*['a', 'a'])
+            # >>> assert Path() / 'a/a' == p
+            # >>> p = Path(ppath.__file__)
+            # >>> p.add('a', exception=True)  # doctest: +IGNORE_EXCEPTION_DETAIL, +ELLIPSIS
+            # Traceback (most recent call last):
+            # FileNotFoundError...
 
         Args:
             *args: parts to be added.
@@ -269,7 +336,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Returns:
             Compose path.
         """
-        print(self.is_file())
+        # print(self.is_file())
         if exception and self.is_file() and args:
             raise FileNotFoundError(f'parts: {args}, can not be added since path is file or not directory: {self}')
         args = toiter(args)
@@ -283,9 +350,9 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Open the file in text mode, append to it, and close the file (creates file if not file).
 
         Examples:
-            >>> with Path.tempfile() as tmp:
-            ...    _ = tmp.path.write_text('Hello')
-            ...    assert 'Hello World!' in tmp.path.append_text(' World!')
+            # >>> with Path.tempfile() as tmp:
+            # ...    _ = tmp.path.write_text('Hello')
+            # ...    assert 'Hello World!' in tmp.path.append_text(' World!')
 
         Args:
             text: text to add.
@@ -307,12 +374,12 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Change dir context manager to self if dir or parent if file and exists
 
         Examples:
-            >>> new = Path('/usr/local')
-            >>> p = Path.cwd()
-            >>> with new.cd() as prev:
-            ...     assert new == Path.cwd()
-            ...     assert prev == p
-            >>> assert p == Path.cwd()
+            # >>> new = Path('/usr/local')
+            # >>> p = Path.cwd()
+            # >>> with new.cd() as prev:
+            # ...     assert new == Path.cwd()
+            # ...     assert prev == p
+            # >>> assert p == Path.cwd()
 
         Returns:
             Old Pwd Path.
@@ -329,16 +396,16 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Change to self if dir or parent if file and file exists.
 
         Examples:
-            >>> new = Path(__file__).chdir()
-            >>> assert new == Path(__file__).parent
-            >>> assert Path.cwd() == new
-            >>>
-            >>> new = Path(__file__).parent
-            >>> assert Path.cwd() == new
-            >>>
-            >>> Path("/tmp/foo").chdir()  # doctest: +IGNORE_EXCEPTION_DETAIL
-            Traceback (most recent call last):
-            FileNotFoundError: ... No such file or directory: '/tmp/foo'
+            # >>> new = Path(__file__).chdir()
+            # >>> assert new == Path(__file__).parent
+            # >>> assert Path.cwd() == new
+            # >>>
+            # >>> new = Path(__file__).parent
+            # >>> assert Path.cwd() == new
+            # >>>
+            # >>> Path("/tmp/foo").chdir()  # doctest: +IGNORE_EXCEPTION_DETAIL
+            # Traceback (most recent call last):
+            # FileNotFoundError: ... No such file or directory: '/tmp/foo'
 
         Raises:
             FileNotFoundError: No such file or directory if path does not exist.
@@ -439,6 +506,29 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         return cls(os.path.expandvars(path) if path is not None else "")
 
+    def file_in_parents(self):
+        """
+        Find up until file with name is found.
+
+        Examples:
+            >>> with Path.tempfile() as tmpfile:
+            ...     new = tmpfile.path / "sub" / "file.py"
+            ...     assert new.file_in_parents() == tmpfile.path.resolve().text
+            >>>
+            >>> with Path.tempdir() as tmpdir:
+            ...    new = tmpdir / "sub" / "file.py"
+            ...    assert new.file_in_parents() is None
+
+        Returns:
+            File found in parents (str) or None
+        """
+        p = self.resolve()
+        while True:
+            if p.is_file():
+                return p.text
+            elif p.is_dir() or (p := p.parent.resolve()) == Path('/'):
+                return None
+
     def has(self, value):
         """
         Checks all items in value exist in `self.parts` (not absolute and not relative).
@@ -480,10 +570,10 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         passwd = passwd or Passwd.from_login()
         file = None
         m = ['-m', str(mode)] if mode else []
-        if not (p := (self / name).resolve()).is_dir() and not (file := p._is_file()):
-            print(
-                [*self.sudo(to_list=True, effective_ids=effective_ids), f'{self.mkdir.__name__}', '-p', *m, p.resolve()]
-            )
+        if not (p := (self / name).resolve()).is_dir() and not (file := p.file_in_parents()):
+            # print(
+            #     [*self.sudo(to_list=True, effective_ids=effective_ids), f'{self.mkdir.__name__}', '-p', *m, p.resolve()]
+            # )
             subprocess.run([*self.sudo(to_list=True, effective_ids=effective_ids),
                             f'{self.mkdir.__name__}', '-p', *m, p.resolve()], capture_output=True)
         if file:
@@ -529,28 +619,28 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Sets the set-user-ID-on-execution or set-group-ID-on-execution bits.
 
         Examples:
-            >>> with Path.tempdir() as p:
-            ...     a = p.touch('a')
-            ...     _ = a.setid()
-            ...     assert a.stats().suid is True
-            ...     _ = a.setid(uid=False)
-            ...     assert a.stats().sgid is True
-            ...
-            ...     a.rm()
-            ...
-            ...     _ = a.touch()
-            ...     b = a.setid('b')
-            ...     assert b.stats().suid is True
-            ...     assert a.cmp(b) is True
-            ...
-            ...     _ = b.setid('b', uid=False)
-            ...     assert b.stats().sgid is True
-            ...
-            ...     _ = a.write_text('a')
-            ...     assert a.cmp(b) is False
-            ...     b = a.setid('b')
-            ...     assert b.stats().suid is True
-            ...     assert a.cmp(b) is True
+            # >>> with Path.tempdir() as p:
+            # ...     a = p.touch('a')
+            # ...     _ = a.setid()
+            # ...     assert a.stats().suid is True
+            # ...     _ = a.setid(uid=False)
+            # ...     assert a.stats().sgid is True
+            # ...
+            # ...     a.rm()
+            # ...
+            # ...     _ = a.touch()
+            # ...     b = a.setid('b')
+            # ...     assert b.stats().suid is True
+            # ...     assert a.cmp(b) is True
+            # ...
+            # ...     _ = b.setid('b', uid=False)
+            # ...     assert b.stats().sgid is True
+            # ...
+            # ...     _ = a.write_text('a')
+            # ...     assert a.cmp(b) is False
+            # ...     b = a.setid('b')
+            # ...     assert b.stats().suid is True
+            # ...     assert a.cmp(b) is True
 
         Args:
             name: name to rename if provided.
@@ -593,16 +683,13 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
 
         Returns:
             PathStat namedtuple :class:`ppath.PathStat`:
-            gid: group id.
-            group: group name.
             mode: file mode string formatted as '-rwxrwxrwx'
-            result: result of :func:`os.stat`
+            passwd: instance of :class:`ppath:Passwd` for file owner
+            result: result of `os.stat`
             root: is owned by root
             sgid: group executable and sticky bit (GID bit), members execute as the executable group (i.e.: crontab)
             sticky: sticky bit (directories), new files created in this directory will be owned by the directory's owner
             suid: user executable and sticky bit (UID bit), user execute and as the executable owner (i.e.: sudo)
-            uid: user id.
-            user: user name.
         """
         mapping = dict(
             sgid=stat.S_ISGID | stat.S_IXGRP,
@@ -611,17 +698,16 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         )
         result = os.stat(self, follow_symlinks=follow_symlinks)
         return PathStat(
-            gid=result.st_gid,
             mode=stat.filemode(result.st_mode),
+            passwd=Passwd(result.st_uid),
             result=result,
             root=result.st_uid == 0,
-            uid=result.st_uid,
             **{i: result.st_mode & mapping[i] == mapping[i] for i in PathStat._fields if i in mapping.keys()}
         )
 
     def sudo(self, passwd=None, to_list=False, os_mode=os.W_OK, effective_ids=False, follow_symlinks=True):
         """
-        Returns sudo if path is not own by user and sudo command installed.
+        Returns sudo command if path or ancestors exist and is not own by user and sudo command not installed.
 
         Examples:
             >>> su = which('sudo')
@@ -635,7 +721,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
 
         Args:
             passwd: group/user to check if root to force sudo (default: ACTUAL).
-            to_list: return starred/list for cmd with no shell (default: False).
+            to_list: return starred/list for command with no shell (default: False).
             os_mode: Operating-system mode bitfield. Can be F_OK to test existence,
                 or the inclusive-OR of R_OK, W_OK, and X_OK (default: `os.W_OK`).
             effective_ids: If True, access will use the effective uid/gid instead of
@@ -788,7 +874,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         file = None
         passwd = passwd or Passwd.from_login()
         if not (p := (self / (name or str())).resolve()).is_file() and not p.is_dir() \
-                and not (file := p.parent._is_file()):
+                and not (file := p.parent.file_in_parents()):
             if not (d := p.parent).exists():
                 d.mkdir(passwd=passwd, mode=mode, effective_ids=effective_ids)
             subprocess.run(
@@ -849,7 +935,7 @@ class Passwd:
         shell: Path
             User shell
         uid: int
-            User ID (default: :func:`os.getuid` current process's user id)
+            User ID (default: :func:`os.getuid` current completed's user id)
         user: str
             Username
     """
@@ -867,14 +953,14 @@ class Passwd:
         """
         Instance of :class:`ppath:Passwd`  from either `uid` or `user` (default: :func:`os.getuid`)
 
-        Uses process/real id's (os.getgid, os.getuid) instead effective id's (os.geteuid, os.getegid) as default.
+        Uses completed/real id's (os.getgid, os.getuid) instead effective id's (os.geteuid, os.getegid) as default.
             - UID and GID: when login from $LOGNAME, $USER or os.getuid()
-            - RUID and RGID: process real user id and group id inherit from UID and GID
-                (when process start EUID and EGID and set to the same values as RUID and RGID)
+            - RUID and RGID: completed real user id and group id inherit from UID and GID
+                (when completed start EUID and EGID and set to the same values as RUID and RGID)
             - EUID and EGID: if executable has 'setuid' or 'setgid' (i.e: ping, sudo), EUID and EGID are changed
                 to the owner (setuid) or group (setgid) of the binary.
             - SUID and SGID: if executable has 'setuid' or 'setgid' (i.e: ping, sudo), SUID and SGID are saved with
-                RUID and RGID to do unprivileged tasks by a privileged process (had 'setuid' or 'setgid').
+                RUID and RGID to do unprivileged tasks by a privileged completed (had 'setuid' or 'setgid').
                 Can not be accessed in macOS with `os.getresuid()` and `os.getresgid()`
 
         Examples:
@@ -885,7 +971,19 @@ class Passwd:
             >>> assert p.shell == Path(os.environ["SHELL"])
             >>> assert p.uid == os.getuid()
             >>> assert p.user == u
-            >>> if MACOS
+            >>> if MACOS:
+            ...    assert "staff" in p.groups
+            ...    assert "admin" in p.groups
+            ... else:
+            ...    assert u in p.groups
+            >>>
+            >>> p = Passwd.from_login()
+            >>> assert p.gid == os.getgid()
+            >>> assert p.home == Path(os.environ["HOME"])
+            >>> assert p.shell == Path(os.environ["SHELL"])
+            >>> assert p.uid == os.getuid()
+            >>> assert p.user == u
+            >>> if MACOS:
             ...    assert "staff" in p.groups
             ...    assert "admin" in p.groups
             ... else:
@@ -945,7 +1043,7 @@ class Passwd:
     def from_login(cls):
         """Returns instance of :class:`ppath:Passwd` from '/dev/console' on macOS and `os.getlogin()` on Linux"""
         try:
-            user = pathlib.Path('/dev/console').owner() if platform.system == "Darwin" else os.getlogin()
+            user = pathlib.Path('/dev/console').owner() if MACOS else os.getlogin()
         except OSError:
             user = pathlib.Path('/proc/self/loginuid').owner()
         if user not in _cache_passwd:
@@ -954,7 +1052,7 @@ class Passwd:
 
     @classmethod
     def from_sudo(cls):
-        """Returns instance of :class:`ppath:Passwd` from `SUDO_USER` if set or current process's user"""
+        """Returns instance of :class:`ppath:Passwd` from `SUDO_USER` if set or current completed's user"""
         uid = os.environ.get("SUDO_UID", os.getuid())
         if uid not in _cache_passwd:
             return cls(uid)
@@ -968,22 +1066,51 @@ class Passwd:
         return _cache_passwd[0]
 
 
-PathStat = collections.namedtuple('PathStat', 'gid group mode result root sgid sticky suid uid user')
+PathStat = collections.namedtuple('PathStat', 'mode passwd result root sgid sticky suid')
 PathStat.__doc__ = """
 namedtuple for :func:`ppath.Path.stats`.
 
 Args:
-    gid: group id.
-    group: group name.
     mode: file mode string formatted as '-rwxrwxrwx'
+    passwd: instance of :class:`ppath:Passwd` for file owner
     result: result of os.stat
     root: is owned by root
     sgid: group executable and sticky bit (GID bit), members execute as the executable group (i.e.: crontab)
     sticky: sticky bit (directories), new files created in this directory will be owned by the directory's owner
     suid: user executable and sticky bit (UID bit), user execute and as the executable owner (i.e.: sudo)
-    uid: user id.
-    user: user name.
 """
+
+
+def command(*args, **kwargs) -> subprocess.CompletedProcess:
+    """
+    Exec Command with the following defaults compared to :func:`subprocess.run`:
+
+        - capture_output=True
+        - text=True
+        - check=True
+
+    Examples:
+        # >>> with TempDir() as tmp:
+        # ...     rv = command("git", "clone", "https://github.com/octocat/Hello-World.git", tmp)
+        # ...     assert rv.returncode == 0
+        # ...     assert (tmp / "README.md").exists()
+
+    Args:
+        *args: command and args
+        **kwargs: subprocess.run kwargs
+
+    Raises:
+        CmdError
+
+    Returns:
+        None
+    """
+
+    completed = subprocess.run(args, **kwargs, capture_output=True, text=True)
+
+    if completed.returncode != 0:
+        raise CalledProcessError(completed=completed)
+    return completed
 
 
 def toiter(obj, always=False, split=" "):
@@ -1024,7 +1151,6 @@ def which(cmd="sudo"):
         >>> assert which() == '/usr/bin/sudo'
         >>> assert which('/usr/local') == ''
         >>> assert which('/usr/bin/sudo') == '/usr/bin/sudo'
-        >>> assert which('subprocess_test') == 'subprocess_test'
         >>> assert which('let') == 'let'
         >>> assert which('source') == 'source'
 
