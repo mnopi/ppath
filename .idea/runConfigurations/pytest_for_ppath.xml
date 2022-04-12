@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Doctest toiter" type="tests" factoryName="Doctests" singleton="false" nameIsGenerated="true">
+  <configuration default="false" name="pytest for ppath" type="tests" factoryName="py.test" singleton="false">
     <module name="ppath" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <option name="SDK_HOME" value="" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ppath" />
+    <option name="WORKING_DIRECTORY" value="" />
     <option name="IS_MODULE_SDK" value="true" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -19,13 +19,11 @@
         <ENTRY IS_ENABLED="true" PARSER="runconfig" />
       </ENTRIES>
     </EXTENSION>
-    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ppath/__init__.py" />
-    <option name="CLASS_NAME" value="" />
-    <option name="METHOD_NAME" value="toiter" />
-    <option name="FOLDER_NAME" value="" />
-    <option name="TEST_TYPE" value="TEST_FUNCTION" />
-    <option name="PATTERN" value="" />
-    <option name="USE_PATTERN" value="false" />
+    <option name="_new_keywords" value="&quot;&quot;" />
+    <option name="_new_parameters" value="&quot;&quot;" />
+    <option name="_new_additionalArguments" value="&quot;&quot;" />
+    <option name="_new_target" value="&quot;ppath&quot;" />
+    <option name="_new_targetType" value="&quot;PYTHON&quot;" />
     <method v="2" />
   </configuration>
 </component>
