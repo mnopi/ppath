@@ -5,6 +5,7 @@ Ppath package
 __all__ = (
     "AnyPath",
     "MACOS",
+    "OpenIO",
     "EnumLower",
     "PIs",
     "Path",
@@ -30,11 +31,17 @@ import subprocess
 import sys
 import tempfile
 import tokenize
+from io import BufferedRandom
+from io import BufferedReader
+from io import BufferedWriter
+from io import FileIO
+from io import TextIOWrapper
 from collections.abc import Iterable
 from dataclasses import dataclass
 from dataclasses import field
 from dataclasses import InitVar
 from typing import AnyStr
+from typing import BinaryIO
 from typing import cast
 from typing import IO
 from typing import Union
@@ -45,6 +52,7 @@ _cache_which = {}
 AnyPath = Union[os.PathLike, AnyStr, IO[AnyStr]]
 MACOS = platform.system() == "Darwin"
 """True if :func:`platform.system` is Darwin."""
+OpenIO = Union[BinaryIO, BufferedRandom, BufferedReader, BufferedWriter, FileIO, IO, TextIOWrapper]
 
 
 class CalledProcessError(subprocess.SubprocessError):
@@ -445,11 +453,11 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Returns:
             Checksum of file.
         """
-        h = hashlib.new(algorithm)
+        sha = hashlib.new(algorithm)
         with self.open('rb') as f:
             for block in iter(lambda: f.read(block_size), b''):
-                h.update(block)
-        return h.hexdigest()
+                sha.update(block)
+        return sha.hexdigest()
 
     def chmod(self, mode=None, effective_ids=False, exception=True, follow_symlinks=False, recursive=False):
         """
@@ -580,12 +588,6 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         Wrapper for shell `cp` command to copy file recursivily and adding sudo if necessary.
 
-        TODO: tmp is created with u+rw so when changed to sudo, changed.cmp() fails. Test this when "sudo" is fixed.
-            However stat() works, y el directorio temporal no lo limpia porque se ha creado con sudo
-
-        TODO: stats = destination.stats() for directory Permission denied. Normal.
-                asi que hay que hacer lo de setuid o pasar.
-
         Examples:
             >>> with Path.tempfile() as tmp:
             ...     changed = tmp.path.chown(passwd=Passwd.from_root())
@@ -595,12 +597,11 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             ...     assert st.st_uid == 0
             ...     stats = copied.stats()
             ...     assert stats.mode == "-rw-------"
-
-            # ...     assert copied.cmp(__file__)
-
-            # ...     _ = tmp.chown(passwd=Passwd.from_root())
+            ...     _ = tmp.path.chown()
+            ...     assert copied.cmp(__file__)
 
             >>> with Path.tempdir() as tmp:
+            ...     _ = tmp.chmod("go+rx")
             ...     _ = tmp.chown(passwd=Passwd.from_root())
             ...     src = Path(__file__).parent
             ...     dirname = src.name
@@ -609,25 +610,20 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             ...     _ = src.cp(tmp)
             ...     destination = tmp / dirname
             ...     stats = destination.stats()
-            ...
+            ...     assert stats.mode == "drwxr-xr-x"
+            ...     file = destination / filename
+            ...     st = file.stat()
+            ...     assert st.st_gid == 0
+            ...     assert st.st_uid == 0
+            ...     assert file.owner() == "root"
             ...     tmp = tmp.chown(recursive=True)
-
-
-            # ...     assert stats.mode == "drwx------"
-            # ...     file = destination / filename
-            # ...     st = file.stat()
-            # ...     assert st.st_gid == 0
-            # ...     assert st.st_uid == 0
-            # ...     file.owner == "root"
-            # ...     tmp = tmp.chown(recursive=True)
-            # ...     file.owner != "root"
-            # ...     assert file.cmp(__file__)
-            # ...
-            # ...     _ = src.cp(tmp, contents=True)
-            # ...     stats = tmp.stats()
-            # ...     assert stats.mode == "drw-------"
-            # ...     assert (tmp / filename).cmp(__file__)
-
+            ...     assert file.owner != "root"
+            ...     assert file.cmp(__file__)
+            ...
+            ...     _ = src.cp(tmp, contents=True)
+            ...     file = tmp / filename
+            ...     assert (tmp / filename).cmp(__file__)
+            >>>
             >>> Path("/tmp/foo").cp("/tmp/boo")  # doctest: +IGNORE_EXCEPTION_DETAIL
             Traceback (most recent call last):
             FileNotFoundError: ... No such file or directory: '/tmp/foo'
@@ -639,7 +635,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
                 the real uid/gid (default: False).
             follow_symlinks: `-P´ the `cp` default, no symlinks are followed,
                 all symbolic links are followed when True `-L´ (actual files are copyed but if there are existing links
-                will left them untouched) (default: False)
+                will be left them untouched) (default: False)
                 `-H` cp option is not implemented (default: False).
             preserve: preserve file attributes (default: False).
 
@@ -660,7 +656,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             *(["-R"] if self.is_dir() else []),
             *(["-L"] if follow_symlinks else []),
             *(["-p"] if preserve else []),
-            self / ("/" if contents else ""), dest
+            f"{str(self)}{'/' if contents else ''}", dest
         ], check=True, capture_output=True)
 
         return dest
@@ -938,6 +934,68 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         Sets the set-user-ID-on-execution or set-group-ID-on-execution bits.
 
+        Works if interpreter binary is setuid `u+s,+x` (-rwsr-xr-x), and:
+
+           - executable script and setuid interpreter on shebang (#!/usr/bin/env setuid_interpreter).
+           - setuid_interpreter -m module (venv would be created as root
+
+        Works if interpreter binary is setuid `g+s,+x` (-rwxr-sr-x), and:
+
+        Examples:
+            >>> with Path.tempdir() as p:
+            ...     a = p.touch('a')
+            ...     _ = a.setid()
+            ...     assert a.stats().suid is True
+            ...     _ = a.setid(uid=False)
+            ...     assert a.stats().sgid is True
+            ...
+            ...     a.rm()
+            ...
+            ...     _ = a.touch()
+            ...     b = a.setid('b')
+            ...     assert b.stats().suid is True
+            ...     assert a.cmp(b) is True
+            ...
+            ...     _ = b.setid('b', uid=False)
+            ...     assert b.stats().sgid is True
+            ...
+            ...     _ = a.write_text('a')
+            ...     assert a.cmp(b) is False
+            ...     b = a.setid('b')
+            ...     assert b.stats().suid is True
+            ...     assert a.cmp(b) is True
+
+        Args:
+            name: name to rename if provided.
+            uid: True to set UID bit, False to set GID bit (default: True).
+            effective_ids: If True, access will use the effective uid/gid instead of
+                the real uid/gid (default: False).
+            follow_symlinks: True for resolved, False for absolute and None for relative
+                or doesn't exists (default: True).
+
+        Returns:
+            Updated Path.
+        """
+        change = False
+        chmod = f'{"u" if uid else "g"}+s,+x'
+        mod = (stat.S_ISUID if uid else stat.S_ISGID) | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
+        target = self.with_name(name) if name else self
+        if name and (not target.exists() or not self.cmp(target)):
+            self.cp(target, effective_ids=effective_ids, follow_symlinks=follow_symlinks)
+            change = True
+        elif not (target.stats().result.st_mode & mod == mod):
+            change = True
+        if target.owner() != "root": change = True
+        if change:
+            # First: chown, second: chmod
+            target.chown(passwd=Passwd.from_root(), follow_symlinks=follow_symlinks)
+            target.chmod(mode=chmod, effective_ids=effective_ids, follow_symlinks=follow_symlinks, recursive=True)
+        return target
+
+    def setid_cp(self, name=None, uid=True, effective_ids=False, follow_symlinks=False):
+        """
+        Sets the set-user-ID-on-execution or set-group-ID-on-execution bits.
+
         Examples:
             >>> with Path.tempdir() as p:
             ...     a = p.touch('a')
@@ -990,14 +1048,14 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         return target
 
     @classmethod
-    def setid_executable(cls, name=None, uid=True):
+    def setid_executable_cp(cls, name=None, uid=True):
         """
         Sets the set-user-ID-on-execution or set-group-ID-on-execution bits for sys.executable.
 
         Examples:
             >>> import shutil
             >>> import subprocess
-            >>> f = Path.setid_executable('setid_python_test')
+            >>> f = Path.setid_executable_cp('setid_python_test')
             >>> assert subprocess.check_output([f, '-c', 'import os;print(os.geteuid())'], text=True) == '0\\n'
             >>> assert subprocess.check_output([f, '-c', 'import os;print(os.getuid())'], text=True) != '0\\n'
 
@@ -1012,7 +1070,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             Updated Path.
         """
         path = cls(sys.executable)
-        return path.setid(name=name if name else f'r{path.name}', uid=uid)
+        return path.setid_cp(name=name if name else f'r{path.name}', uid=uid)
 
     def stats(self, follow_symlinks=False):
         """
@@ -1151,7 +1209,10 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         with cls.tempdir(suffix=suffix, prefix=prefix, directory=directory) as tmpdir:
             with tmpdir.cd():
-                yield tmpdir
+                try:
+                    yield tmpdir
+                finally:
+                    pass
 
     @classmethod
     @contextlib.contextmanager
@@ -1183,7 +1244,10 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             Directory Path.
         """
         with tempfile.TemporaryDirectory(suffix=suffix, prefix=prefix, dir=directory) as tmp:
-            yield cls(tmp)
+            try:
+                yield cls(tmp)
+            finally:
+                pass
 
     @classmethod
     @contextlib.contextmanager
@@ -1217,7 +1281,10 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
                                          suffix=suffix, prefix=prefix, dir=directory, delete=delete,
                                          errors=errors) as tmp:
             tmp.path = cls(tmp.name)
-            yield tmp
+            try:
+                yield tmp
+            finally:
+                pass
 
     def to_parent(self):
         """
