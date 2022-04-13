@@ -17,7 +17,11 @@ from pathlib import Path
 #  /Users/j5pu/ppath/src/setreuid_root_python_normal.py
 #  /Users/j5pu/ppath/src/env python3
 
-# CONCLUSION: cambiar el interpreter y mirar si al crear el ven se jode.
+# CONCLUSION: cambiar el interpreter y mirar si al crear el venv se jode. Hacer set del grupo tambien ??
+# el ven lo crea todo con root, todo, todo,...
+# O SEA: o lo dejo fijo en el python o con un context manager o algo asi, y llamar
+# hacer un sitecustomize con esto !!!
+
 
 print(os.access("/etc/profile", os.W_OK, effective_ids=True))
 print(os.getuid())

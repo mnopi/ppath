@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
-      <change afterPath="$PROJECT_DIR$/src/setreuid_env.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setreuid_root_python_normal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setreuid_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ppath/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ppath/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setreuid.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setreuid_root.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setreuid_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setreuid_user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
