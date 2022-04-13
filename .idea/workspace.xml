@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/pytest_for_ppath.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setreuid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ppath.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ppath.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Doctest_toiter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Doctest_toiter.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setreuid_env.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setreuid_root_python_normal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setreuid_user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ppath/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ppath/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ppath/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ppath/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setreuid.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setreuid_root.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +39,31 @@
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/_typeshed/__init__.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/subprocess.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/ppath/__init__.pyi" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/ppath/__init__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/os.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/setreuid_user.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setreuid_env.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/os/__init__.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/pathlib.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/sudoers.conf" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/posix.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/setreuid_root_python_normal.py" root0="SKIP_INSPECTION" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/stat.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/posix.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/pwd.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/setreuid_root.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/pyproject.toml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/setup.cfg" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/pathlib.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/.github/workflows/tag.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/typing.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
@@ -69,7 +94,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.path.for.package.standard" value="project" />
@@ -92,6 +117,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/ppath" />
     </key>
@@ -99,7 +125,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Doctest Path.ln">
+  <component name="RunManager" selected="Python.setreuid_root">
     <configuration default="true" type="BashConfigurationType" singleton="false" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="" />
@@ -213,6 +239,38 @@
         </ENTRIES>
       </EXTENSION>
       <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="true" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="setreuid_root" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="ppath" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="true" />
+        <option name="IS_SUBST" value="true" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="true" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/setreuid_root.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="true" />
@@ -464,35 +522,6 @@
       <option name="docutils_open_in_browser" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctest Passwd.__post_init__" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ppath" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ppath" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ppath/__init__.py" />
-      <option name="CLASS_NAME" value="Passwd" />
-      <option name="METHOD_NAME" value="__post_init__" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
     <configuration name="Doctest Path.cp" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
       <module name="ppath" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -522,64 +551,6 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctest Path.exists" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ppath" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ppath" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ppath/__init__.py" />
-      <option name="CLASS_NAME" value="Path" />
-      <option name="METHOD_NAME" value="exists" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Doctest Path.file_in_parents" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ppath" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ppath" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ppath/__init__.py" />
-      <option name="CLASS_NAME" value="Path" />
-      <option name="METHOD_NAME" value="file_in_parents" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
     <configuration name="Doctest Path.ln" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
       <module name="ppath" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -603,6 +574,64 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ppath/__init__.py" />
       <option name="CLASS_NAME" value="Path" />
       <option name="METHOD_NAME" value="ln" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctest Path.setid_executable" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="ppath" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ppath" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ppath/__init__.py" />
+      <option name="CLASS_NAME" value="Path" />
+      <option name="METHOD_NAME" value="setid_executable" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctest Path.touch" type="tests" factoryName="Doctests" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="ppath" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ppath" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ppath/__init__.py" />
+      <option name="CLASS_NAME" value="Path" />
+      <option name="METHOD_NAME" value="touch" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -762,18 +791,18 @@
       <item itemvalue="Python tests.Doctest toiter" />
       <item itemvalue="Python tests.pytest for ppath" />
       <item itemvalue="Python tests.Doctest Path.ln" />
-      <item itemvalue="Python tests.Doctest Path.file_in_parents" />
-      <item itemvalue="Python tests.Doctest Path.exists" />
       <item itemvalue="Python tests.Doctest Path.cp" />
-      <item itemvalue="Python tests.Doctest Passwd.__post_init__" />
+      <item itemvalue="Python tests.Doctest Path.touch" />
+      <item itemvalue="Python tests.Doctest Path.setid_executable" />
+      <item itemvalue="Python.setreuid_root" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.setreuid_root" />
+        <item itemvalue="Python tests.Doctest Path.setid_executable" />
         <item itemvalue="Python tests.Doctest Path.ln" />
         <item itemvalue="Python tests.Doctest Path.cp" />
-        <item itemvalue="Python tests.Doctest Passwd.__post_init__" />
-        <item itemvalue="Python tests.Doctest Path.exists" />
-        <item itemvalue="Python tests.Doctest Path.file_in_parents" />
+        <item itemvalue="Python tests.Doctest Path.touch" />
       </list>
     </recent_temporary>
   </component>
@@ -805,6 +834,17 @@
     <MESSAGE value="auto" />
     <option name="LAST_COMMIT_MESSAGE" value="auto" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/ppath/__init__.py</url>
+          <line>1013</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="ch.raffael.plugins.idea.runpopup.RunConfigurationUseTracker">
     <option name="runConfInfo">
       <map>
@@ -817,39 +857,12 @@
             </RunConfInfo>
           </value>
         </entry>
-        <entry key="Python tests.Doctest Passwd.__post_init__">
-          <value>
-            <RunConfInfo>
-              <option name="confId" value="Python tests.Doctest Passwd.__post_init__" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649797681264" />
-            </RunConfInfo>
-          </value>
-        </entry>
         <entry key="Python tests.Doctest Path.cp">
           <value>
             <RunConfInfo>
               <option name="confId" value="Python tests.Doctest Path.cp" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649801684427" />
-            </RunConfInfo>
-          </value>
-        </entry>
-        <entry key="Python tests.Doctest Path.exists">
-          <value>
-            <RunConfInfo>
-              <option name="confId" value="Python tests.Doctest Path.exists" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649796911110" />
-            </RunConfInfo>
-          </value>
-        </entry>
-        <entry key="Python tests.Doctest Path.file_in_parents">
-          <value>
-            <RunConfInfo>
-              <option name="confId" value="Python tests.Doctest Path.file_in_parents" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649796901496" />
+              <option name="executorId" value="Debug" />
+              <option name="timestamp" value="1649811999312" />
             </RunConfInfo>
           </value>
         </entry>
@@ -858,7 +871,25 @@
             <RunConfInfo>
               <option name="confId" value="Python tests.Doctest Path.ln" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649802004967" />
+              <option name="timestamp" value="1649819126037" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Python tests.Doctest Path.setid_executable">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Python tests.Doctest Path.setid_executable" />
+              <option name="executorId" value="Debug" />
+              <option name="timestamp" value="1649819437307" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Python tests.Doctest Path.touch">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Python tests.Doctest Path.touch" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649810347385" />
             </RunConfInfo>
           </value>
         </entry>
@@ -876,7 +907,16 @@
             <RunConfInfo>
               <option name="confId" value="Python tests.pytest for ppath" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649778035932" />
+              <option name="timestamp" value="1649822341240" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Python.setreuid">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Python.setreuid" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649823563829" />
             </RunConfInfo>
           </value>
         </entry>
@@ -884,25 +924,29 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_setid_executable.coverage" NAME="Doctest Path.setid_executable Coverage Results" MODIFIED="1649819437311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_chmod.coverage" NAME="Doctest Path.chmod Coverage Results" MODIFIED="1649778833441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_toiter.coverage" NAME="Doctest toiter Coverage Results" MODIFIED="1649628456667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_exists.coverage" NAME="Doctest Path.exists Coverage Results" MODIFIED="1649796911115" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
-    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_cp.coverage" NAME="Doctest Path.cp Coverage Results" MODIFIED="1649801684450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
+    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_cp.coverage" NAME="Doctest Path.cp Coverage Results" MODIFIED="1649811999316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_sudo.coverage" NAME="Doctest Path.sudo Coverage Results" MODIFIED="1649796806915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
-    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_ln.coverage" NAME="Doctest Path.ln Coverage Results" MODIFIED="1649802004980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
+    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_ln.coverage" NAME="Doctest Path.ln Coverage Results" MODIFIED="1649819126049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Passwd___post_init__.coverage" NAME="Doctest Passwd.__post_init__ Coverage Results" MODIFIED="1649797681275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_chown.coverage" NAME="Doctest Path.chown Coverage Results" MODIFIED="1649778850925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_rm.coverage" NAME="Doctest Path.rm Coverage Results" MODIFIED="1649796875938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
+    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_touch.coverage" NAME="Doctest Path.touch Coverage Results" MODIFIED="1649810347396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_tempcd.coverage" NAME="Doctest Path.tempcd Coverage Results" MODIFIED="1649796795287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Passwd___post_init____1_.coverage" NAME="Doctest Passwd.__post_init__ (1) Coverage Results" MODIFIED="1649781919429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_tempfile.coverage" NAME="Doctest Path.tempfile Coverage Results" MODIFIED="1649796778088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_access.coverage" NAME="Doctest Path.access Coverage Results" MODIFIED="1649720440944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ppath" />
+    <SUITE FILE_PATH="coverage/ppath$setreuid.coverage" NAME="setreuid Coverage Results" MODIFIED="1649823563974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_setid.coverage" NAME="Doctest Path.setid Coverage Results" MODIFIED="1649796824949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_tempdir.coverage" NAME="Doctest Path.tempdir Coverage Results" MODIFIED="1649796786005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_stats.coverage" NAME="Doctest Path.stats Coverage Results" MODIFIED="1649796817544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_CalledProcessError___init__.coverage" NAME="Doctests in ppath Coverage Results" MODIFIED="1649714507953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ppath" />
-    <SUITE FILE_PATH="coverage/ppath$pytest_for_ppath.coverage" NAME="pytest for ppath Coverage Results" MODIFIED="1649778035957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ppath$pytest_for_ppath.coverage" NAME="pytest for ppath Coverage Results" MODIFIED="1649822341254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_file_in_parents.coverage" NAME="Doctest Path.file_in_parents Coverage Results" MODIFIED="1649796901501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_with_suffix.coverage" NAME="Doctest Path.with_suffix Coverage Results" MODIFIED="1649796761718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
+    <SUITE FILE_PATH="coverage/ppath$Doctest_Path_mkdir.coverage" NAME="Doctest Path.mkdir Coverage Results" MODIFIED="1649808494908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
   </component>
 </project>

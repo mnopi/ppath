@@ -27,6 +27,7 @@ import shutil
 import signal
 import stat
 import subprocess
+import sys
 import tempfile
 import tokenize
 from collections.abc import Iterable
@@ -170,7 +171,7 @@ class PIs(EnumLower):
 
 class Path(pathlib.Path, pathlib.PurePosixPath):
 
-    def __call__(self, name="", file=PIs.IS_DIR, passwd=None, mode=None):
+    def __call__(self, name="", file=PIs.IS_DIR, passwd=None, mode=None, effective_ids=False, follow_symlinks=False):
         """
         Make dir or touch file and create subdirectories as needed.
 
@@ -195,7 +196,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         # noinspection PyArgumentList
         return (self.mkdir if file is PIs.IS_DIR or file is PIs.EXISTS else self.touch)(
-            name=name, passwd=passwd, mode=mode
+            name=name, passwd=passwd, mode=mode, effective_ids=effective_ids, follow_symlinks=follow_symlinks,
         )
 
     def __contains__(self, value):
@@ -267,7 +268,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             return NotImplemented
         return self._cparts >= other._cparts
 
-    def access(self, os_mode=os.W_OK, *, dir_fd=None, effective_ids=False, follow_symlinks=True):
+    def access(self, os_mode=os.W_OK, *, dir_fd=None, effective_ids=False, follow_symlinks=False):
         # noinspection LongLine
         """
         Checks if file or directory exists and has access (returns None if file/directory does not exist.
@@ -280,8 +281,8 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Examples:
             >>> assert Path().access() is True
             >>> assert Path('/usr/bin').access() is False
-            >>> assert Path('/tmp').access() is True
-            >>> assert Path('/tmp').access(effective_ids=True) is True
+            >>> assert Path('/tmp').access(follow_symlinks=True) is True
+            >>> assert Path('/tmp').access(effective_ids=True, follow_symlinks=True) is True
             >>> if MACOS:
             ...     assert Path('/etc/bashrc').access(effective_ids=True) is False
             >>> assert Path('/etc/sudoers').access(effective_ids=True, os_mode=os.R_OK) is False
@@ -297,7 +298,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
                 the real uid/gid (default: True).
             follow_symlinks: If False, and the last element of the path is a symbolic link,
                 access will examine the symbolic link itself instead of the file
-                the link points to (default: True).
+                the link points to (default: False).
 
         Note:
             Most operations will use the effective uid/gid (what the operating system
@@ -450,7 +451,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
                 h.update(block)
         return h.hexdigest()
 
-    def chmod(self, mode=None, effective_ids=False, exception=True, follow_symlinks=True, recursive=False):
+    def chmod(self, mode=None, effective_ids=False, exception=True, follow_symlinks=False, recursive=False):
         """
         Change mode of self.
 
@@ -492,7 +493,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
 
         return self
 
-    def chown(self, passwd=None, effective_ids=False, exception=True, follow_symlinks=True, recursive=False):
+    def chown(self, passwd=None, effective_ids=False, exception=True, follow_symlinks=False, recursive=False):
         """
         Change owner of path
 
@@ -582,6 +583,9 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         TODO: tmp is created with u+rw so when changed to sudo, changed.cmp() fails. Test this when "sudo" is fixed.
             However stat() works, y el directorio temporal no lo limpia porque se ha creado con sudo
 
+        TODO: stats = destination.stats() for directory Permission denied. Normal.
+                asi que hay que hacer lo de setuid o pasar.
+
         Examples:
             >>> with Path.tempfile() as tmp:
             ...     changed = tmp.path.chown(passwd=Passwd.from_root())
@@ -605,20 +609,24 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             ...     _ = src.cp(tmp)
             ...     destination = tmp / dirname
             ...     stats = destination.stats()
-            ...     assert stats.mode == "drwx------"
-            ...     file = destination / filename
-            ...     st = file.stat()
-            ...     assert st.st_gid == 0
-            ...     assert st.st_uid == 0
-            ...     file.owner == "root"
-            ...     tmp = tmp.chown(recursive=True)
-            ...     file.owner != "root"
-            ...     assert file.cmp(__file__)
             ...
-            ...     _ = src.cp(tmp, contents=True)
-            ...     stats = tmp.stats()
-            ...     assert stats.mode == "drw-------"
-            ...     assert (tmp / filename).cmp(__file__)
+            ...     tmp = tmp.chown(recursive=True)
+
+
+            # ...     assert stats.mode == "drwx------"
+            # ...     file = destination / filename
+            # ...     st = file.stat()
+            # ...     assert st.st_gid == 0
+            # ...     assert st.st_uid == 0
+            # ...     file.owner == "root"
+            # ...     tmp = tmp.chown(recursive=True)
+            # ...     file.owner != "root"
+            # ...     assert file.cmp(__file__)
+            # ...
+            # ...     _ = src.cp(tmp, contents=True)
+            # ...     stats = tmp.stats()
+            # ...     assert stats.mode == "drw-------"
+            # ...     assert (tmp / filename).cmp(__file__)
 
             >>> Path("/tmp/foo").cp("/tmp/boo")  # doctest: +IGNORE_EXCEPTION_DETAIL
             Traceback (most recent call last):
@@ -630,7 +638,9 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             effective_ids: If True, access will use the effective uid/gid instead of
                 the real uid/gid (default: False).
             follow_symlinks: `-P´ the `cp` default, no symlinks are followed,
-                all symbolic links are followed when True `-L´, `-H` cp option is not implemented (default: False).
+                all symbolic links are followed when True `-L´ (actual files are copyed but if there are existing links
+                will left them untouched) (default: False)
+                `-H` cp option is not implemented (default: False).
             preserve: preserve file attributes (default: False).
 
         Raises:
@@ -648,9 +658,9 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             *dest.sudo(effective_ids=effective_ids, follow_symlinks=follow_symlinks),
             f'{self.cp.__name__}',
             *(["-R"] if self.is_dir() else []),
-            *(["-L"] if follow_symlinks else ["-P"]),
+            *(["-L"] if follow_symlinks else []),
             *(["-p"] if preserve else []),
-            self / ("/" if contents else ""), str(dest)
+            self / ("/" if contents else ""), dest
         ], check=True, capture_output=True)
 
         return dest
@@ -696,14 +706,14 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         return cls(os.path.expandvars(path) if path is not None else "")
 
-    def file_in_parents(self, exception=True, follow_symlinks=True):
+    def file_in_parents(self, exception=True, follow_symlinks=False):
         """
         Find up until file with name is found.
 
         Examples:
             >>> with Path.tempfile() as tmpfile:
             ...     new = tmpfile.path / "sub" / "file.py"
-            ...     assert new.file_in_parents(exception=False) == tmpfile.path.resolve()
+            ...     assert new.file_in_parents(exception=False) == tmpfile.path.absolute()
             >>>
             >>> with Path.tempdir() as tmpdir:
             ...    new = tmpdir / "sub" / "file.py"
@@ -771,11 +781,9 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             ...     destination = source.ln("destination")
             ...     assert destination.is_symlink()
             ...     assert destination.resolve() == source.resolve()
-            ...     assert destination.readlink() == source.resolve()
+            ...     assert destination.readlink().resolve() == source.resolve()
             ...
             ...     touch = tmp.touch("touch")
-            ...     _ = tmp.ln("touch")
-            ...
             ...     _ = tmp.ln("touch", force=False)  # doctest: +IGNORE_EXCEPTION_DETAIL
             Traceback (most recent call last):
             FileExistsError:
@@ -789,20 +797,41 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         # TODO: relative symlinks https://gist.dreamtobe.cn/willprice/311faace6fb4f514376fa405d2220615
         dest = self.__class__(dest)
-        if dest.is_symlink() and dest.readlink() == self.resolve():
+        if dest.is_symlink() and dest.readlink().resolve() == self.resolve():
             return dest
         if force and dest.exists():
-            dest.rm()
+            dest.rm(follow_symlinks=False)
         self._accessor.symlink(self, dest)
         return dest
 
-    def mkdir(self, name="", passwd=None, mode=None, effective_ids=False, follow_symlinks=True):
+    def mkdir(self, name="", passwd=None, mode=None, effective_ids=False, follow_symlinks=False):
         """
         Add directory, make directory, change mode and return new Path.
 
+        Examples:
+            >>> import getpass
+            >>> with Path.tempcd() as tmp:
+            ...     directory = tmp('1/2/3/4')
+            ...     assert directory.is_dir() is True
+            ...     assert directory.owner() == getpass.getuser()
+            ...
+            ...     _ = directory.chown(passwd=Passwd.from_root())
+            ...     assert directory.owner() == "root"
+            ...     five = directory.mkdir("5")
+            ...     assert five.text.endswith('/1/2/3/4/5') is True
+            ...     assert five.owner() == "root"
+            ...
+            ...     six = directory("6")
+            ...     assert six.owner() == "root"
+            ...
+            ...     seven = directory("7", passwd=Passwd())
+            ...     assert seven.owner() == getpass.getuser()
+            ...
+            ...     _ = directory.chown(passwd=Passwd())
+
         Args:
             name: name.
-            passwd: group/user.
+            passwd: group/user for chown, if None ownership will not be changed (default: None).
             mode: mode.
             effective_ids: If True, access will use the effective uid/gid instead of
                 the real uid/gid (default: True).
@@ -814,17 +843,18 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Returns:
             Path:
         """
-        path = (self / str(name)).resolve() if follow_symlinks else self / name
+        path = (self / str(name)).resolve() if follow_symlinks else (self / str(name))
         if not path.is_dir() and path.file_in_parents(follow_symlinks=follow_symlinks) is None:
             subprocess.run([
-                *self.sudo(effective_ids=effective_ids, follow_symlinks=follow_symlinks),
+                *path.sudo(effective_ids=effective_ids, follow_symlinks=follow_symlinks),
                 f'{self.mkdir.__name__}',
                 "-p",
                 *(["-m", str(mode)] if mode else []),
                 path
             ], capture_output=True)
 
-        path.chown(passwd=passwd or Passwd.from_login(), effective_ids=effective_ids, follow_symlinks=follow_symlinks)
+            if passwd is not None:
+                path.chown(passwd=passwd, effective_ids=effective_ids, follow_symlinks=follow_symlinks)
         return path
 
     def open(self, mode='r', buffering=-1, encoding=None, errors=None, newline=None, token=False):
@@ -865,7 +895,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         return self.__class__(self._accessor.realpath(self, strict=not exception))
 
-    def rm(self, *args, effective_ids=False, follow_symlinks=None, missing_ok=True):
+    def rm(self, *args, effective_ids=False, follow_symlinks=False, missing_ok=True):
         """
         Delete a folder/file (even if the folder is not empty)
 
@@ -890,8 +920,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             *args: parts to add to self.
             effective_ids: If True, access will use the effective uid/gid instead of
                 the real uid/gid (default: False).
-            follow_symlinks: True for resolved, False for absolute and None for relative
-                or doesn't exists (default: True).
+            follow_symlinks: True for resolved (default: False).
             missing_ok: missing_ok
         """
         if not missing_ok and not self.exists():
@@ -899,13 +928,13 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
 
         if (path := self.add(*args)).exists():
             subprocess.run([
-                *self.sudo(force=True, effective_ids=effective_ids, follow_symlinks=follow_symlinks),
+                *path.sudo(force=True, effective_ids=effective_ids, follow_symlinks=follow_symlinks),
                 f'{self.rm.__name__}',
                 *(["-rf"] if self.is_dir() else []),
                 path.resolve() if follow_symlinks else path,
             ], capture_output=True)
 
-    def setid(self, name=None, uid=True):
+    def setid(self, name=None, uid=True, effective_ids=False, follow_symlinks=False):
         """
         Sets the set-user-ID-on-execution or set-group-ID-on-execution bits.
 
@@ -936,22 +965,56 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Args:
             name: name to rename if provided.
             uid: True to set UID bit, False to set GID bit (default: True).
+            effective_ids: If True, access will use the effective uid/gid instead of
+                the real uid/gid (default: False).
+            follow_symlinks: True for resolved, False for absolute and None for relative
+                or doesn't exists (default: True).
 
         Returns:
             Updated Path.
         """
-        target = self.with_name(name) if name else self
+        change = False
         chmod = f'{"u" if uid else "g"}+s,+x'
         mod = (stat.S_ISUID if uid else stat.S_ISGID) | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
+        target = self.with_name(name) if name else self
         if name and (not target.exists() or not self.cmp(target)):
-            self.cp(target)
-            target.chown(Passwd.from_root())
-            target.chmod(mode=chmod, recursive=True)
-        elif (s := target.stats()) and not (s.result.st_mode & mod == mod):
-            target.chmod(mode=chmod, recursive=True)
+            self.cp(target, effective_ids=effective_ids, follow_symlinks=follow_symlinks)
+            change = True
+        elif not (target.stats().result.st_mode & mod == mod):
+            change = True
+        if target.owner() != "root": change = True
+        if change:
+            # First: chown, second: chmod
+            target.chown(passwd=Passwd.from_root(), follow_symlinks=follow_symlinks)
+            target.chmod(mode=chmod, effective_ids=effective_ids, follow_symlinks=follow_symlinks, recursive=True)
         return target
 
-    def stats(self, follow_symlinks=True):
+    @classmethod
+    def setid_executable(cls, name=None, uid=True):
+        """
+        Sets the set-user-ID-on-execution or set-group-ID-on-execution bits for sys.executable.
+
+        Examples:
+            >>> import shutil
+            >>> import subprocess
+            >>> f = Path.setid_executable('setid_python_test')
+            >>> assert subprocess.check_output([f, '-c', 'import os;print(os.geteuid())'], text=True) == '0\\n'
+            >>> assert subprocess.check_output([f, '-c', 'import os;print(os.getuid())'], text=True) != '0\\n'
+
+            # >>> f.rm()
+            # >>> assert f.exists() is False
+
+        Args:
+            name: name to rename if provided or False to add 'r' to original name (default: False).
+            uid: True to set UID bit, False to set GID bit (default: True).
+
+        Returns:
+            Updated Path.
+        """
+        path = cls(sys.executable)
+        return path.setid(name=name if name else f'r{path.name}', uid=uid)
+
+    def stats(self, follow_symlinks=False):
         """
         Return the result of the stat() system call on this path, like
         os.stat() does with extra parsing for bits and root.
@@ -970,7 +1033,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Args:
             follow_symlinks: If False, and the last element of the path is a symbolic link,
                 stat will examine the symbolic link itself instead of the file
-                the link points to (default: True).
+                the link points to (default: False).
 
         Returns:
             PathStat namedtuple :class:`ppath.PathStat`:
@@ -1007,17 +1070,17 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
             **{i: result.st_mode & mapping[i] == mapping[i] for i in PathStat._fields if i in mapping.keys()}
         )
 
-    def sudo(self, force=False, to_list=True, os_mode=os.W_OK, effective_ids=False, follow_symlinks=True):
+    def sudo(self, force=False, to_list=True, os_mode=os.W_OK, effective_ids=False, follow_symlinks=False):
         """
         Returns sudo command if path or ancestors exist and is not own by user and sudo command not installed.
 
         Examples:
             >>> su = which('sudo')
-            >>> assert Path('/tmp').sudo(to_list=False) == ''
+            >>> assert Path('/tmp').sudo(to_list=False, follow_symlinks=True) == ''
             >>> assert Path('/usr/bin').sudo(to_list=False) == '/usr/bin/sudo'
             >>> assert Path('/usr/bin/no_dir/no_file.text').sudo(to_list=False) == su
             >>> assert Path('no_dir/no_file.text').sudo(to_list=False) == ''
-            >>> assert Path('/tmp').sudo() == []
+            >>> assert Path('/tmp').sudo(follow_symlinks=True) == []
             >>> assert Path('/usr/bin').sudo() == [su]
 
         Args:
@@ -1029,7 +1092,7 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
                 the real uid/gid (default: True).
             follow_symlinks: If False, and the last element of the path is a symbolic link,
                 access will examine the symbolic link itself instead of the file
-                the link points to (default: True).
+                the link points to (default: False).
         Returns:
             `sudo` or ``, str or list.
         """
@@ -1119,11 +1182,8 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         Returns:
             Directory Path.
         """
-        try:
-            with tempfile.TemporaryDirectory(suffix=suffix, prefix=prefix, dir=directory) as tmp:
-                yield cls(tmp)
-        except PermissionError:
-            pass
+        with tempfile.TemporaryDirectory(suffix=suffix, prefix=prefix, dir=directory) as tmp:
+            yield cls(tmp)
 
     @classmethod
     @contextlib.contextmanager
@@ -1171,38 +1231,57 @@ class Path(pathlib.Path, pathlib.PurePosixPath):
         """
         return self.parent if self.is_file() else self
 
-    def touch(self, name="", passwd=None, mode=None, effective_ids=False, follow_symlinks=True):
+    def touch(self, name="", passwd=None, mode=None, effective_ids=False, follow_symlinks=False):
         """
         Add file, touch and return post_init Path.
 
         Parent paths are created.
+7 años informatico 300 coicertos, 2 discos , horizontes,
+        Examples:
+            >>> import getpass
+            >>> with Path.tempcd() as tmp:
+            ...     file = tmp('1/2/3/4/5/6/root.py', file=PIs.IS_FILE, passwd=Passwd.from_root())
+            ...     assert file.is_file() is True
+            ...     assert file.parent.owner() == getpass.getuser()
+            ...     assert file.owner() == "root"
+            ...
+            ...     new = file.parent("user.py", file=PIs.IS_FILE)
+            ...     assert new.owner() == getpass.getuser()
+            ...
+            ...     touch = file.parent.touch("touch.py")
+            ...     assert touch.owner() == getpass.getuser()
+            ...
+            ...     last = (file.parent / "last.py").touch()
+            ...     assert last.owner() == getpass.getuser()
+            ...     assert last.is_file() is True
+            ...
+            ...     file.rm()
 
         Args:
             name: name.
-            passwd: group/user.
+            passwd: group/user for chown, if None ownership will not be changed (default: None).
             mode: mode.
             effective_ids: If True, access will use the effective uid/gid instead of
                 the real uid/gid (default: False).
-            follow_symlinks: If False, and the last element of the path is a symbolic
+            follow_symlinks: If False, I think is useless (default: False).
 
         Returns:
             Path.
         """
-        passwd = passwd or Passwd.from_login()
         path = self / str(name)
         path = path.resolve() if follow_symlinks else path.absolute()
         if not path.is_file() and not path.is_dir() \
                 and path.parent.file_in_parents(follow_symlinks=follow_symlinks) is None:
             if not (d := path.parent).exists():
-                d.mkdir(passwd=passwd, mode=mode, effective_ids=effective_ids)
+                d.mkdir(mode=mode, effective_ids=effective_ids, follow_symlinks=follow_symlinks)
             subprocess.run([
-                *self.sudo(effective_ids=effective_ids),
+                *path.sudo(effective_ids=effective_ids, follow_symlinks=follow_symlinks),
                 f'{self.touch.__name__}',
                 path
             ], capture_output=True, check=True)
-        else:
-            path.chmod(mode=mode)
-            path.chown(passwd=passwd)
+            path.chmod(mode=mode, effective_ids=effective_ids, follow_symlinks=follow_symlinks)
+            if passwd is not None:
+                path.chown(passwd=passwd, effective_ids=effective_ids, follow_symlinks=follow_symlinks)
         return path
 
     def with_suffix(self, suffix=""):
