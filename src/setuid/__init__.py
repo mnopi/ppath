@@ -13,10 +13,7 @@ def main(*args):
     """
     if args and args[0] == 'demo':
         demo = Path(__file__).with_name('demo.py')
-        getoutput(str(demo))
-
-    print(args)
-    pass
+        print(getoutput(str(demo)))
 
 
 if __name__ == "__main__":

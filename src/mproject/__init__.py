@@ -27,7 +27,7 @@ import setuptools.config
 import toml
 from packaging.specifiers import SpecifierSet
 
-venv.CORE_VENV_DEPS = ("build", "darling", "ipython", "pip", "pytest", "pytest-asyncio", "rich",
+venv.CORE_VENV_DEPS = ("build", "darling", "icecream", "ipython", "pip", "pytest", "pytest-asyncio", "rich",
                        "setuptools", "setuptools_scm", "tox", "wheel", )
 
 FileConfig = namedtuple("FileConfig", ("file", "config"))

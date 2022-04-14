@@ -1,40 +1,42 @@
-#!/usr/bin/env spython
 # coding=utf-8
 """
 Setuid Module
 
-`sudo cp python3 spython`
-`sudo chown root spython`
-`sudo chmod u+s,+x spython`
+`sudo cp python3 python`
+`sudo chown root python`
+`sudo chmod u+s,+x python`
+
+sitecustomize.py
+import os
+os.seteuid(os.getuid())
+
+site.py
+after all imports:
+os.seteuid(os.getuid())
+HOME USER me da el usuario que ha entrado, pero si cambio entonces...
+no cambia
 """
+
+# TODO: aqui lo dejo. hacer el instalador. y luego el context manager según access o porque si
 import os
 
 from pathlib import Path
 from string import Template
+
 from subprocess import getoutput
 from subprocess import run
 
 from icecream import ic
-from mproject import EnvBuilder
 
-template = Template("""#!/usr/bin/env spython
+template = Template("""#!/usr/bin/env python3
 from pathlib import Path
 ${filename} = Path("/tmp/${filename}")
 ${filename}.touch()
 print(${filename}.owner())
 """)
 tmp = Path('/tmp/setuid')
-tmp.mkdir(exist_ok=True)
 
-
-def create():
-    name = ic(create.__name__)
-
-    file = tmp / name
-
-    EnvBuilder(env_dir=file)
-    ic(file.owner())
-    run(["sudo", "rm", "-rf", file])
+# tmp.mkdir(exist_ok=True)
 
 
 def module():
@@ -44,13 +46,13 @@ def module():
     file.write_text(template.substitute(filename=name))
 
     os.environ["PYTHONPATH"] = str(tmp)
-    ic(getoutput(f"spython -m {name}"))
+    ic(getoutput(f"python3 -m {name}"))
 
     run(["sudo", "chown", "501:20", file])
-    ic(getoutput(f"spython -m {name}"))
+    ic(getoutput(f"python3 -m {name}"))
 
     run(["sudo", "chmod", "+x", file])
-    ic(getoutput(f"spython -m {name}"))
+    ic(getoutput(f"python3 -m {name}"))
     ic(getoutput(f"{file}"))
 
 
@@ -82,23 +84,22 @@ def spython():
     name = ic(spython.__name__)
 
     d = dict(filename="pipe")
-    ic(getoutput(f"echo '{template.substitute(d)}' | spython"))
+    ic(getoutput(f"echo '{template.substitute(d)}' | python3"))
 
     d = dict(filename="heredoc")
-    ic(getoutput(f"spython <<<'{template.substitute(d)}'"))
+    ic(getoutput(f"python3 <<<'{template.substitute(d)}'"))
 
     d = dict(filename="script")
-    ic(getoutput(f"spython -c '{template.substitute(d)}'"))
+    ic(getoutput(f"python3 -c '{template.substitute(d)}'"))
 
-    ic(getoutput(f"spython -c 'import os; print(os.getuid()); print(os.geteuid())'"))
+    ic(getoutput(f"python3 -c 'import os; print(os.getuid()); print(os.geteuid())'"))
 
 
 def main():
     ic(os.getuid(), os.getgid(), os.geteuid(), os.getegid())
-    module()
+    # module()
     path()
     profile()
-    create()
 
 
 ic(os.environ["USER"])
@@ -111,7 +112,7 @@ print()
 main()
 print()
 
-ic(os.seteuid(501))
+ic(os.seteuid(1000))
 main()
 print()
 
@@ -119,9 +120,10 @@ ic(os.seteuid(0))
 main()
 print()
 
-ic(os.seteuid(501))
+ic(os.seteuid(1000))
 main()
 print()
 
 ic(os.seteuid(0))
 main()
+

@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
-      <change afterPath="$PROJECT_DIR$/src/mproject/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setuid/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setuid/demo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setuid/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setuid/demo.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setuid/demo_linux.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setuid/geteuid.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setuid/seteuid.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ppath/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ppath/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/src/ppath/__init__.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setreuid_env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setreuid_root.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setreuid_root_python_normal.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setreuid_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mproject/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mproject/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setuid/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setuid/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setuid/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setuid/demo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="BashSupport Pro Bash" />
       </list>
     </option>
   </component>
@@ -46,6 +46,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/setuid/demo.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/venv/lib/python3.10/site-packages/packaging/specifiers.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/_io.py" root0="SKIP_INSPECTION" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/tempfile.py" root0="SKIP_INSPECTION" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/pathlib.py" root0="SKIP_INSPECTION" />
@@ -61,12 +62,19 @@
     <setting file="file://$PROJECT_DIR$/.github/workflows/tag.yaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/_typeshed/__init__.pyi" root0="SKIP_INSPECTION" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/subprocess.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/mproject/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/ppath/__init__.pyi" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/ppath/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/os.py" root0="SKIP_INSPECTION" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/os/__init__.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/demo_linux.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/geteuid.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/__init__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/seteuid.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/typing.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/venv/__init__.pyi" root0="SKIP_INSPECTION" />
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
@@ -97,7 +105,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/setuid" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.path.for.package.standard" value="project" />
@@ -106,7 +114,7 @@
     <property name="node.js.selected.package.jscs" value="" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.stylelint" value="/usr/local/lib/node_modules/stylelint" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="BashSupport Pro/Interpreters" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -120,6 +128,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/setuid" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/ppath" />
@@ -129,7 +138,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.demo">
+  <component name="RunManager" selected="Makefile Target.test">
     <configuration default="true" type="BashConfigurationType" singleton="false" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="" />
@@ -204,6 +213,18 @@
       </makefile>
       <method v="2" />
     </configuration>
+    <configuration name="build" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/src/setuid/Makefile" target="build" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" singleton="false" temporary="true">
+      <makefile filename="$PROJECT_DIR$/src/setuid/Makefile" target="test" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="Multirun" singleton="false" separateTabs="false" reuseTabsWithFailures="false" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="false" delayTime="0.0">
       <method v="2" />
     </configuration>
@@ -217,38 +238,6 @@
       </PathMappingSettings>
       <option name="REDIRECT_OUTPUT" value="true" />
       <option name="SUSPEND_AFTER_CONNECT" value="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="__init__ (1)" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ppath" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/mproject" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="true" />
-        <option name="IS_SUBST" value="true" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="true" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/mproject/__init__.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="true" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
@@ -275,7 +264,7 @@
         </ENTRIES>
       </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/setuid/__init__.py" />
-      <option name="PARAMETERS" value="spython" />
+      <option name="PARAMETERS" value="demo" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="true" />
       <option name="MODULE_MODE" value="false" />
@@ -339,70 +328,6 @@
         </ENTRIES>
       </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/setuid/demo.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="true" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="setreuid_root" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ppath" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="true" />
-        <option name="IS_SUBST" value="true" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="true" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/setreuid_root.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="true" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="virtual" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ppath" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/setuid" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="true" />
-        <option name="IS_SUBST" value="true" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="true" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/setuid/virtual.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="true" />
@@ -596,6 +521,15 @@
         <settings>
           <option name="containerName" value="" />
           <option name="sourceFilePath" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="kali" type="docker-deploy" factoryName="docker-image" singleton="false" temporary="true" server-name="macos">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="kalilinux/kali-rolling:latest" />
+          <option name="containerName" value="kali" />
         </settings>
       </deployment>
       <method v="2" />
@@ -804,21 +738,21 @@
     </configuration>
     <list>
       <item itemvalue="Makefile Target.tests" />
-      <item itemvalue="Python.setreuid_root" />
       <item itemvalue="Python.__init__" />
+      <item itemvalue="Python.demo" />
       <item itemvalue="Python tests.Doctest toiter" />
       <item itemvalue="Python tests.pytest for ppath" />
-      <item itemvalue="Python.demo" />
-      <item itemvalue="Python.virtual" />
-      <item itemvalue="Python.__init__ (1)" />
+      <item itemvalue="Docker.kali" />
+      <item itemvalue="Makefile Target.build" />
+      <item itemvalue="Makefile Target.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.demo" />
-        <item itemvalue="Python.__init__ (1)" />
-        <item itemvalue="Python.virtual" />
+        <item itemvalue="Makefile Target.test" />
+        <item itemvalue="Makefile Target.build" />
+        <item itemvalue="Docker.kali" />
         <item itemvalue="Python.__init__" />
-        <item itemvalue="Python.setreuid_root" />
+        <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
   </component>
@@ -853,6 +787,33 @@
   <component name="ch.raffael.plugins.idea.runpopup.RunConfigurationUseTracker">
     <option name="runConfInfo">
       <map>
+        <entry key="Docker.kali">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Docker.kali" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649895662723" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Makefile Target.build">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.build" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649906285401" />
+            </RunConfInfo>
+          </value>
+        </entry>
+        <entry key="Makefile Target.test">
+          <value>
+            <RunConfInfo>
+              <option name="confId" value="Makefile Target.test" />
+              <option name="executorId" value="Run" />
+              <option name="timestamp" value="1649906401532" />
+            </RunConfInfo>
+          </value>
+        </entry>
         <entry key="Makefile Target.tests">
           <value>
             <RunConfInfo>
@@ -885,16 +846,7 @@
             <RunConfInfo>
               <option name="confId" value="Python.__init__" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649868475014" />
-            </RunConfInfo>
-          </value>
-        </entry>
-        <entry key="Python.__init__ (1)">
-          <value>
-            <RunConfInfo>
-              <option name="confId" value="Python.__init__ (1)" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649883681433" />
+              <option name="timestamp" value="1649894653154" />
             </RunConfInfo>
           </value>
         </entry>
@@ -903,16 +855,7 @@
             <RunConfInfo>
               <option name="confId" value="Python.demo" />
               <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649891779341" />
-            </RunConfInfo>
-          </value>
-        </entry>
-        <entry key="Python.virtual">
-          <value>
-            <RunConfInfo>
-              <option name="confId" value="Python.virtual" />
-              <option name="executorId" value="Run" />
-              <option name="timestamp" value="1649882467492" />
+              <option name="timestamp" value="1649892810288" />
             </RunConfInfo>
           </value>
         </entry>
@@ -920,13 +863,13 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ppath$demo.coverage" NAME="demo Coverage Results" MODIFIED="1649891779488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/setuid" />
+    <SUITE FILE_PATH="coverage/ppath$demo.coverage" NAME="demo Coverage Results" MODIFIED="1649892810449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/setuid" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_setid_executable.coverage" NAME="Doctest Path.setid_executable Coverage Results" MODIFIED="1649819437311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_chmod.coverage" NAME="Doctest Path.chmod Coverage Results" MODIFIED="1649778833441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$__init____1_.coverage" NAME="__init__ (1) Coverage Results" MODIFIED="1649883681571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/mproject" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_toiter.coverage" NAME="Doctest toiter Coverage Results" MODIFIED="1649628456667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_exists.coverage" NAME="Doctest Path.exists Coverage Results" MODIFIED="1649796911115" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
-    <SUITE FILE_PATH="coverage/ppath$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1649868475136" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/setuid" />
+    <SUITE FILE_PATH="coverage/ppath$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1649894653305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/setuid" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_sudo.coverage" NAME="Doctest Path.sudo Coverage Results" MODIFIED="1649796806915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_ln.coverage" NAME="Doctest Path.ln Coverage Results" MODIFIED="1649819126049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
     <SUITE FILE_PATH="coverage/ppath$Doctest_Path_chown.coverage" NAME="Doctest Path.chown Coverage Results" MODIFIED="1649778850925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/ppath" />
