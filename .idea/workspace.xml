@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mproject/__init__.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
