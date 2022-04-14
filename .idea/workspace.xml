@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efec2c61-2bfe-4ae1-adb8-abeac33f31e3" name="Changes" comment="auto">
-      <change afterPath="$PROJECT_DIR$/src/setuid/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setuid/demo.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setuid/demo_linux.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setuid/geteuid.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setuid/seteuid.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mproject/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mproject/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setuid/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setuid/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setuid/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setuid/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mproject/__init__.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +54,6 @@
     <setting file="file://$PROJECT_DIR$/.github/workflows/tag.yaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/_typeshed/__init__.pyi" root0="SKIP_INSPECTION" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/subprocess.pyi" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/mproject/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/ppath/__init__.pyi" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/ppath/__init__.py" root0="FORCE_HIGHLIGHTING" />
@@ -114,7 +105,7 @@
     <property name="node.js.selected.package.jscs" value="" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.stylelint" value="/usr/local/lib/node_modules/stylelint" />
-    <property name="settings.editor.selected.configurable" value="BashSupport Pro/Interpreters" />
+    <property name="settings.editor.selected.configurable" value="Settings.CustomPostfixTemplates" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -737,14 +728,14 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.kali" />
       <item itemvalue="Makefile Target.tests" />
+      <item itemvalue="Makefile Target.build" />
+      <item itemvalue="Makefile Target.test" />
       <item itemvalue="Python.__init__" />
       <item itemvalue="Python.demo" />
       <item itemvalue="Python tests.Doctest toiter" />
       <item itemvalue="Python tests.pytest for ppath" />
-      <item itemvalue="Docker.kali" />
-      <item itemvalue="Makefile Target.build" />
-      <item itemvalue="Makefile Target.test" />
     </list>
     <recent_temporary>
       <list>
