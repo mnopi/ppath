@@ -36,35 +36,35 @@
     <option name="projectConfigVersion" value="5" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/setuid/demo.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/venv/lib/python3.10/site-packages/packaging/specifiers.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/_io.py" root0="SKIP_INSPECTION" />
-    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/tempfile.py" root0="SKIP_INSPECTION" />
-    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/pathlib.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/sudoers.conf" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/posix.pyi" root0="SKIP_INSPECTION" />
-    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/stat.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/posix.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/pwd.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/pyproject.toml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/setup.cfg" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/pathlib.pyi" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/.github/workflows/tag.yaml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/_typeshed/__init__.pyi" root0="SKIP_INSPECTION" />
-    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/subprocess.pyi" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/ppath/__init__.pyi" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py" root0="SKIP_INSPECTION" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/stat.py" root0="SKIP_INSPECTION" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/pathlib.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/posix.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/subprocess.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/setup.cfg" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/ppath/__init__.pyi" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/posix.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/ppath/__init__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/pwd.py" root0="SKIP_INSPECTION" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/tempfile.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/pathlib.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/pyproject.toml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/__init__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/demo.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/_typeshed/__init__.pyi" root0="SKIP_INSPECTION" />
     <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/os.py" root0="SKIP_INSPECTION" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/os/__init__.pyi" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/setuid/demo_linux.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/setuid/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/setuid/geteuid.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/setuid/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/setuid/seteuid.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/typing.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/venv/lib/python3.10/site-packages/packaging/specifiers.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/demo_linux.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.github/workflows/tag.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/geteuid.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python/helpers/typeshed/stdlib/venv/__init__.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/setuid/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sudoers.conf" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/local/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/typing.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../JetBrains/cache/PyCharm/python_stubs/1942019577/_io.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
